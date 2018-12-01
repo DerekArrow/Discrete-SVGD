@@ -174,7 +174,7 @@ def Exact_Mean(factors, dims):
 
 if __name__=='__main__':
 	parser = argparse.ArgumentParser(description='Discrete MRF')
-	parser.add_argument('--file',default='test')
+	parser.add_argument('--file',default='uai1')
 	args = parser.parse_args()
 	file = args.file
 	factors, dims = readUai(file + '.txt')
