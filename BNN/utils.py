@@ -64,9 +64,10 @@ def SVGD(models, args, w_s, h = -1):
             weighted_Kxy[row,:] = torch.mul(Kxy[row,:], w_s)  # weighted kernel
         dxkxy = -torch.matmul(weighted_Kxy, theta)
         sumkxy = torch.sum(weighted_Kxy, dim=1)
-        for i in range(theta.shape[1]):
-            dxkxy[:, i] = dxkxy[:,i] + torch.mul(theta[:,i],sumkxy)
-        dxkxy = dxkxy / (h**2)
+        # for i in range(theta.shape[1]):
+        #    dxkxy[:, i] = dxkxy[:,i] + torch.mul(theta[:,i],sumkxy)
+        dxkxy[:, :] = dxkxy[:, :] + theta[:, :] * sumkxy[:, None]
+	dxkxy = dxkxy / (h**2)
     else:
         weighted_Kxy = torch.ones((1,1)).cuda()
         dxkxy = torch.zeros(theta.shape).cuda()
